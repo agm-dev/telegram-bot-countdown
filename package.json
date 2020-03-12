@@ -1,0 +1,30 @@
+{
+  "name": "telegram-bot-countdown",
+  "version": "1.0.0",
+  "description": "Telegram bot that writes a countdown on a telegram group chat",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agm-dev/telegram-bot-countdown.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "javascript",
+    "telegraf"
+  ],
+  "author": "Adrián Gonzalo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agm-dev/telegram-bot-countdown/issues"
+  },
+  "homepage": "https://github.com/agm-dev/telegram-bot-countdown#readme",
+  "dependencies": {
+    "dotenv-safe": "^8.2.0",
+    "telegraf": "^3.36.0"
+  }
+}
