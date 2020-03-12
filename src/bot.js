@@ -85,7 +85,7 @@ bot.command(COUNTDOWN_CANCEL_COMMAND, catchErrors(ctx => {
   }
 
   if (typeof state.intervals[intervalId] !== 'undefined') {
-    log.info(`finished countdown because $/{COUNTDOWN_CANCEL_COMMAND} in chat`, id);
+    log.info(`finished countdown because /${COUNTDOWN_CANCEL_COMMAND} in chat`, id);
     clearInterval(state.intervals[intervalId]);
     delete state.intervals[intervalId];
     ctx.reply('the countdown has been canceled');
