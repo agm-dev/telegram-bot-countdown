@@ -1,6 +1,11 @@
 const Telegraf = require('telegraf');
 
-const { BOT_TOKEN, COUNTDOWN_COMMAND } = require('./vars');
+const {
+  BOT_TOKEN,
+  COUNTDOWN_COMMAND,
+  COUNTDOWN_SECONDS_SOFT_LIMIT,
+  COUNTDOWN_SECONDS_HARD_LIMIT,
+} = require('./vars');
 const { catchErrors, log } = require('./utils');
 
 const bot = new Telegraf(BOT_TOKEN);
@@ -30,6 +35,13 @@ bot.command(COUNTDOWN_COMMAND, catchErrors(ctx => {
   if (typeof count !== 'number' || isNaN(count) || count <= 0) {
     log.info('this bot only accepts numbers as param');
     ctx.reply('please, send me the number of seconds to start the countdown (greater than 0)');
+    return;
+  }
+
+  if (count > COUNTDOWN_SECONDS_SOFT_LIMIT || count > COUNTDOWN_SECONDS_HARD_LIMIT) {
+    const limit = count > COUNTDOWN_SECONDS_SOFT_LIMIT ? COUNTDOWN_SECONDS_SOFT_LIMIT : COUNTDOWN_SECONDS_HARD_LIMIT;
+    log.info(`trying to set a countdown higher than ${limit} seconds`);
+    ctx.reply(`can't start a countdown higher than ${limit} seconds`);
     return;
   }
 
