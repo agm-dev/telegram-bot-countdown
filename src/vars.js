@@ -7,11 +7,13 @@ require('dotenv-safe').config({
 
 const { BOT_TOKEN, COUNTDOWN_SECONDS_SOFT_LIMIT } = process.env;
 const COUNTDOWN_COMMAND = 'countdown';
+const COUNTDOWN_CANCEL_COMMAND = 'cancelcountdown';
 const COUNTDOWN_SECONDS_HARD_LIMIT = 600; // 10 min
 
 module.exports = {
   BOT_TOKEN,
   COUNTDOWN_COMMAND,
+  COUNTDOWN_CANCEL_COMMAND,
   COUNTDOWN_SECONDS_SOFT_LIMIT,
   COUNTDOWN_SECONDS_HARD_LIMIT,
 };

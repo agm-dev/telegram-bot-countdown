@@ -3,6 +3,7 @@ const Telegraf = require('telegraf');
 const {
   BOT_TOKEN,
   COUNTDOWN_COMMAND,
+  COUNTDOWN_CANCEL_COMMAND,
   COUNTDOWN_SECONDS_SOFT_LIMIT,
   COUNTDOWN_SECONDS_HARD_LIMIT,
 } = require('./vars');
@@ -28,7 +29,7 @@ bot.command(COUNTDOWN_COMMAND, catchErrors(ctx => {
   let count = Number(countString);
 
   if (is_bot) {
-    log.info('this bot does not listen to othe bots', is_bot);
+    log.info('this bot does not listen to other bots', is_bot);
     return;
   }
 
@@ -63,6 +64,35 @@ bot.command(COUNTDOWN_COMMAND, catchErrors(ctx => {
       delete state.intervals[intervalId];
     }
   }, 1000);
+}));
+
+bot.command(COUNTDOWN_CANCEL_COMMAND, catchErrors(ctx => {
+  const { message } = ctx;
+  const { from, chat, text } = message;
+  const { is_bot } = from;
+  const { id } = chat;
+
+  const intervalId = `int_${id}`;
+  const countString = text
+    .replace(new RegExp(`\/${COUNTDOWN_CANCEL_COMMAND}`, 'img'), '')
+    .trim();
+
+  let count = Number(countString);
+
+  if (is_bot) {
+    log.info('this bot does not listen to other bots', is_bot);
+    return;
+  }
+
+  if (typeof state.intervals[intervalId] !== 'undefined') {
+    log.info(`finished countdown because $/{COUNTDOWN_CANCEL_COMMAND} in chat`, id);
+    clearInterval(state.intervals[intervalId]);
+    delete state.intervals[intervalId];
+    ctx.reply('the countdown has been canceled');
+    return;
+  }
+
+  log.info('there is no active countdown on this group', id);
 }));
 
 module.exports = bot;
